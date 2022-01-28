@@ -4,7 +4,9 @@
   "description": "db management and back end for viuteca",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "nodemon ./app.js",
+    "debugstart": "SET DEBUG=local-library:* & npm run start"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/ericjardon/viuteca-api/issues"
   },
-  "homepage": "https://github.com/ericjardon/viuteca-api#readme"
+  "homepage": "https://github.com/ericjardon/viuteca-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
