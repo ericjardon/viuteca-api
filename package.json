@@ -1,0 +1,19 @@
+{
+  "name": "viuteca-api",
+  "version": "1.0.0",
+  "description": "db management and back end for viuteca",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericjardon/viuteca-api.git"
+  },
+  "author": "eric chao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericjardon/viuteca-api/issues"
+  },
+  "homepage": "https://github.com/ericjardon/viuteca-api#readme"
+}
