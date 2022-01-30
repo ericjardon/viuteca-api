@@ -1,35 +1,6 @@
-/* const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-
-const port = process.env.PORT || 3010;
-const app = express();
-
-app.use(express.json());
-app.use(
-    cors({
-        origin: ['https://viuteca.vercel.app', 'http://localhost:3000'],
-        exposedHeaders: 'auth-token',
-        credentials: true
-    })
-)
-
-// Routers
-
-const EXAMPLE = process.env.CONNECTIONSTRING;
-
-/* DB SERVER CONNECTION 
-
-app.listen(port, () => {
-    console.log("Viuteca Server up and running in " + port)
-}); */
-
 const oracledb = require('oracledb');
-require('dotenv').config()
 // client runs on Linux
-const DBPASS = process.env.ORACLEDBPASS;
-
-oracledb.initOracleClient({ libDir: '/home/echao/opt/oracle/instantclient_21_5' });
+oracledb.initOracleClient({ libDir: '/opt/oracle/instantclient_21_5' });
 
 async function run() {
 
@@ -37,7 +8,7 @@ async function run() {
 
   try {
 
-    connection = await oracledb.getConnection({ user: "admin", password: DBPASS, connectionString: "viuteca22_high" });
+    connection = await oracledb.getConnection({ user: "admin", password: "toggle-11", connectionString: "viuteca22_high" });
 
     // Create a table
 
