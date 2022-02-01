@@ -1,3 +1,7 @@
 1. Evaluate two options for DB
   a) Oracle Cloud (32GB, always free)
   b) Heroku Hobby Dev, 1GB Postgres DB
+
+  ** Oracle DB
+
+  * How will you deploy the connection?

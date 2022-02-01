@@ -1,15 +1,19 @@
+
 const oracledb = require('oracledb');
+require('dotenv').config();
+
 // client runs on Linux
-// oracledb.initOracleClient({ libDir: '/opt/oracle/instantclient_21_5' });
-oracledb.initOracleClient();
-// https://medium.com/@arunkundgol/how-to-setup-oracle-instant-client-on-windows-subsystem-for-linux-cccee61d5b0b
+const DBPASS = process.env.ORACLEDBPASS;
+
+oracledb.initOracleClient({ libDir: '/home/echao/opt/oracle/instantclient_21_5' });
+
 async function run() {
 
   let connection;
 
   try {
 
-    connection = await oracledb.getConnection({ user: "admin", password: "toggle-11", connectionString: "viuteca22_high" });
+    connection = await oracledb.getConnection({ user: "admin", password: DBPASS, connectionString: "viuteca22_high" });
 
     // Create a table
 
@@ -36,9 +40,7 @@ async function run() {
     await connection.executeMany(sql, binds);
 
     // connection.commit();     // uncomment to make data persistent
-
     // Now query the rows back
-
     const result = await connection.execute(`SELECT * FROM nodetab`);
 
     console.dir(result.rows, { depth: null });
@@ -56,6 +58,4 @@ async function run() {
   }
 }
 
-run();
-
-// run with node example.js
+module.exports = run;
