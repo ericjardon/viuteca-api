@@ -2,17 +2,18 @@ require('dotenv').config();
 const webServer = require('./services/web-server');
 const database = require('./services/db');
 const dbConfig = require('./config/db');
+const admin = require('./services/firebase-admin');
 const defaultThreadPoolSize = 4;
 
 // Increase thread pool by poolMax so we can allocate our db pool
 process.env.UV_THREADPOOL_SIZE = dbConfig.vtPool.poolMax + defaultThreadPoolSize;
 
 async function startServer() {
-    console.log('Start server...');
+    console.log('Starting server:');
     // Use try-catch instead of .then().catch()
 
     try {
-        console.log('Initializing database module');
+        console.log('Initializing database module...');
 
         await database.initialize();
     } catch (err) {
@@ -22,7 +23,7 @@ async function startServer() {
     }
 
     try {
-        console.log('Initializing web server module');
+        console.log('Initializing web server module...');
         await webServer.initialize();
     } catch (e) {
         console.error(e);

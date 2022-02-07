@@ -5,7 +5,7 @@
   "main": "express.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devstart": "nodemon ./index.js",
+    "devserver": "nodemon ./index.js",
     "debugstart": "SET DEBUG=local-library:* & npm run start"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
+    "firebase-admin": "^10.0.2",
     "morgan": "^1.10.0",
     "oracledb": "^5.1.0"
   },

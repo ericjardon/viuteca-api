@@ -1,12 +1,13 @@
 const oracledb = require('oracledb');
 const dbConfig = require('../config/db');
-/* Brings oracledb drive and configuration file for db connection pool.
+/* 
+Brings oracledb drive and configuration file for db connection pool.
 initialize() creates a pool that is stored in an internal pool cache.
 */
 
 async function initialize() {
     const pool = await oracledb.createPool(dbConfig.vtPool);
-    console.log("Initialized database pool correctly");
+    console.log("Connected to database pool correctly");
 }
 
 // the connection pool shoudl start before the web server
