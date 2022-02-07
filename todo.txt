@@ -3,5 +3,11 @@
   b) Heroku Hobby Dev, 1GB Postgres DB
 
   ** Oracle DB
-
   * How will you deploy the connection?
+
+  ///
+echo "export VT_USER=hr" >> ~/.bashrc
+echo "export VT_PASSWORD=oracle" >> ~/.bashrc
+echo "export VT_CONNECTSTRING=0.0.0.0/orcl" >> ~/.bashrc
+source ~/.bashrc
+  ///

@@ -16,12 +16,14 @@ app.use(
 )
 
 // Routers
-
 const EXAMPLE = process.env.CONNECTIONSTRING;
 
 
 
-db();
+const connection = db;
+console.log("Closing connection...");
+console.log(connection);
+// await connection.close();
 
 
 app.listen(port, () => {

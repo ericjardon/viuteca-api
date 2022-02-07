@@ -1,0 +1,48 @@
+HIGH LEVEL COMPONENTS OF AN API
+
+1. Web Server: agent that accepts incoming http requests and can send responses.
+- using low-level modules (http, https, http2)
+- using frameworks (express)
+
+2. Router: mapping of endpoints and https methods the API supports to controller actions.
+- routing logic is tied to choice of web Server, bc they usually provide a means of routing
+
+3. Controllers: one Js function for every URL/method combination.
+- controllers should pull information from the incoming request (from url, body, or headers)
+- should be able to generate the http response, and interact with databases
+
+4. Database APIs: handle all interactions with the database. 
+- Commonly used, ORMs abstract away all database stuff.
+- Usually called the "model" layer
+- A lower-level approach is to use the databse driver for node: node-oracledb
+
+
+App structure:
+- config files include web server init and db connection.
+- "Using environment variables provides flexibility when deploying the app to different environments and helps keep passwords and other sensitive information out of source code."
+
+Node is described as "single-threaded" but actually uses a thread pool for operations
+that would otherwise block the main thread running JS code.
+node-oracledb uses this pool for asynchronous operations. 
+Default size of thread pool is 4 threads, so for our API to support more,
+we have to set UV_THREADPOOL_SIZE to desired value to the first call that
+uses the thread pool.
+
+
+BASIC CRUD
+Executing SQL with node-oracledb is a 3-step process:
+- Get a connection
+- Execute the code
+- Release the connection
+A single call to execute means a simple, unitary transaction like 
+individual CRUD operations.
+
+
+These three are boilerplate code, and so can be abstracted into a function.
+
+
+
+Modules to consider:
+- Winston: debugging, tracing
+- Morgan: http logging (STDOUT by default, you might want to output to an HTTP access log file)
+- Sworm: a ligthweight write-only ORM for many SQL databases; made for Node
