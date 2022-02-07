@@ -24,7 +24,8 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "firebase-admin": "^10.0.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "oracledb": "^5.1.0"
   },
   "engines": {
     "node": "14.x"
