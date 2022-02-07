@@ -6,8 +6,8 @@ initialize() creates a pool that is stored in an internal pool cache.
 */
 
 async function initialize() {
-    // console.log("database credentials:")
-    // console.dir(dbConfig);
+    console.log("database credentials:")
+    console.dir(dbConfig);
     const pool = await oracledb.createPool(dbConfig.vtPool);
     console.log("Connected to database pool correctly");
 }
