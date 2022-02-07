@@ -4,7 +4,7 @@
   "description": "db management and back end for viuteca",
   "main": "express.js",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "devserver": "nodemon ./index.js",
     "debugstart": "SET DEBUG=local-library:* & npm run start"
@@ -26,6 +26,9 @@
     "firebase-admin": "^10.0.2",
     "morgan": "^1.10.0",
     "oracledb": "^5.1.0"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
