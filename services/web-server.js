@@ -21,9 +21,9 @@ function initialize() {
         // )
         
         app.get('/', async (req, res) => {
-            const result = await database.simpleExecute('select user from users');
-            const user = result.rows[0].USER;
-            res.end('Welcome to the Viuteca REST API' + `DB user: ${user}`)
+            // const result = await database.simpleExecute('select user from users');
+            // const user = result.rows[0].USER;
+            res.end('Welcome to the Viuteca REST API');
         })
         
         httpServer = app.listen(webServerConfig.port, (err) => {
