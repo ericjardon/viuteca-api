@@ -4,6 +4,7 @@
   "description": "db management and back end for viuteca",
   "main": "express.js",
   "scripts": {
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "devserver": "nodemon ./index.js",
     "debugstart": "SET DEBUG=local-library:* & npm run start"
