@@ -12,10 +12,7 @@ async function startServer() {
     console.log('Starting server:');
     try {
         console.log('Initializing Firebase Admin SDK...');
-
-        firebase.initialize();
-        
-        
+        firebase.initialize(); 
     } catch (err) {
         console.error(err);
         process.exit(1);
@@ -38,10 +35,7 @@ async function startServer() {
         // Cannot start our app without db access
         process.exit(1);
     }
-
-
 }
-
 startServer();
 
 
