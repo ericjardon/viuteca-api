@@ -16,7 +16,7 @@ async function startServer() {
         console.log('Initializing Firebase Admin SDK...');
 
         firebase.initialize();
-        firebase.testAuth();
+        //firebase.testAuth();
         
     } catch (err) {
         console.error(err);
