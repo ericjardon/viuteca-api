@@ -25,7 +25,7 @@ function initialize() {
             // const user = result.rows[0].USER;
             res.end('Welcome to the Viuteca REST API');
         })
-        
+        console.log("Web server config port", webServerConfig.port)
         httpServer = app.listen(webServerConfig.port, (err) => {
             if (err) {
                 reject(err);
