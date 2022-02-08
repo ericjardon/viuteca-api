@@ -41,8 +41,8 @@ individual CRUD operations.
 These three are boilerplate code, and so can be abstracted into a function.
 
 Buildpacks for oracle instanc client in node:
-- https://github.com/puporod/heroku-buildpack-nodejs-oracledb
-- https://elements.heroku.com/buildpacks/gmrempe/heroku-buildpack-nodejs-oracledb
+- https://github.com/puporod/heroku-buildpack-nodejs-oracledb OUTDATED
+- https://github.com/gmrempe/heroku-buildpack-nodejs-oracledb
 
 
 
