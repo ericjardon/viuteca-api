@@ -2,7 +2,7 @@ require('dotenv').config();
 const webServer = require('./services/web-server');
 const database = require('./services/db');
 const dbConfig = require('./config/db');
-const admin = require('./services/firebase-admin');
+const firebase = require('./services/firebase-admin');
 const defaultThreadPoolSize = 4;
 
 // Increase thread pool by poolMax so we can allocate our db pool
@@ -11,6 +11,17 @@ process.env.UV_THREADPOOL_SIZE = dbConfig.vtPool.poolMax + defaultThreadPoolSize
 async function startServer() {
     console.log('Starting server:');
     // Use try-catch instead of .then().catch()
+
+    try {
+        console.log('Initializing Firebase Admin SDK...');
+
+        firebase.initialize();
+        //firebase.testAuth();
+        
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
 
     try {
         console.log('Initializing database module...');

@@ -1,15 +1,39 @@
 const admin = require("firebase-admin");
-console.log('Initializing firebase Admin module...');
-const envKeys = process.env.GOOGLE_SERVICE_ACCOUNT;
-if (!envKeys) {
-    throw new Error('The $GOOGLE_SERVICE_ACCOUNT variable was not found.');
+
+let adminApp; // we define multiple methods and services for the adminApp variable;
+
+async function initialize() {
+  const envKeys = process.env.GOOGLE_SERVICE_ACCOUNT;
+  if (!envKeys) {
+      throw new Error('The $GOOGLE_SERVICE_ACCOUNT variable was not found.');
+  }
+  
+  const serviceAccount = JSON.parse(envKeys); // json string into object
+  
+  adminApp = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+  
+  console.log("Succesfully connected to Google Firebase");
+  // let defaultAuth = getAuth(adminApp);
+  // let defaultDatabase = getDatabase(adminApp);
 }
 
-const serviceAccount = JSON.parse(envKeys); // json string into object
+module.exports.initialize = initialize;
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-console.log("Succesfully connected to Google Firebase");
 
-module.exports.admin = admin;
+function testAuth() {
+  let uid = 'txZMPyk7OvNQ9mBvonSM8QLbQ8l1';
+  getAuth()
+  .getUser(uid)
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  })
+  .catch((error) => {
+    console.log('Error fetching user data:', error);
+  });
+
+}
+
+module.exports.testAuth = testAuth;
