@@ -10,8 +10,6 @@ process.env.UV_THREADPOOL_SIZE = dbConfig.vtPool.poolMax + defaultThreadPoolSize
 
 async function startServer() {
     console.log('Starting server:');
-    // Use try-catch instead of .then().catch()
-
     try {
         console.log('Initializing Firebase Admin SDK...');
 
@@ -24,15 +22,6 @@ async function startServer() {
     }
 
     try {
-        console.log('Initializing database module...');
-        await database.initialize();
-    } catch (err) {
-        console.error(err);
-        // Cannot start our app without db access
-        process.exit(1);
-    }
-    
-    try {
         console.log('Initializing web server module...');
         await webServer.initialize();
     } catch (e) {
@@ -40,6 +29,16 @@ async function startServer() {
 
         process.exit(1);
     }
+
+    try {
+        console.log('Initializing database module...');
+        await database.initialize();
+    } catch (err) {
+        console.error(err);
+        // Cannot start our app without db access
+        process.exit(1);
+    }
+
 
 }
 
