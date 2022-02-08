@@ -22,6 +22,15 @@ async function startServer() {
         console.error(err);
         process.exit(1);
     }
+    
+    try {
+        console.log('Initializing web server module...');
+        await webServer.initialize();
+    } catch (e) {
+        console.error(e);
+
+        process.exit(1);
+    }
 
     try {
         console.log('Initializing database module...');
@@ -30,15 +39,6 @@ async function startServer() {
     } catch (err) {
         console.error(err);
         // Cannot start our app without db access
-        process.exit(1);
-    }
-
-    try {
-        console.log('Initializing web server module...');
-        await webServer.initialize();
-    } catch (e) {
-        console.error(e);
-
         process.exit(1);
     }
 }
