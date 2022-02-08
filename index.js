@@ -16,13 +16,13 @@ async function startServer() {
         console.log('Initializing Firebase Admin SDK...');
 
         firebase.initialize();
-        firebase.testAuth();
+        //firebase.testAuth();
         
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
-    
+
     try {
         console.log('Initializing web server module...');
         await webServer.initialize();
