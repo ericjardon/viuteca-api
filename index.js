@@ -16,13 +16,22 @@ async function startServer() {
         console.log('Initializing Firebase Admin SDK...');
 
         firebase.initialize();
-        //firebase.testAuth();
+        
         
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
 
+    try {
+        console.log('Initializing database module...');
+        await database.initialize();
+    } catch (err) {
+        console.error(err);
+        // Cannot start our app without db access
+        process.exit(1);
+    }
+    
     try {
         console.log('Initializing web server module...');
         await webServer.initialize();
@@ -32,15 +41,6 @@ async function startServer() {
         process.exit(1);
     }
 
-    try {
-        console.log('Initializing database module...');
-
-        await database.initialize();
-    } catch (err) {
-        console.error(err);
-        // Cannot start our app without db access
-        process.exit(1);
-    }
 }
 
 startServer();
