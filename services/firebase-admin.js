@@ -1,4 +1,6 @@
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
+const {getAuth} = require('firebase-admin/auth');
+
 
 let adminApp; // we define multiple methods and services for the adminApp variable;
 
@@ -13,7 +15,7 @@ async function initialize() {
   adminApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });
-  
+
   console.log("Succesfully connected to Google Firebase");
   // let defaultAuth = getAuth(adminApp);
   // let defaultDatabase = getDatabase(adminApp);
