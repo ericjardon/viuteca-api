@@ -1,9 +1,28 @@
-const oracledb = require('oracledb');
-const dbConfig = require('../config/db');
+require('dotenv').config();
+const { Client } = require('pg');
+
+let client;
+
 
 async function initialize() {
-    // console.dir(dbConfig);
-    const pool = await oracledb.createPool(dbConfig.vtPool);
+    console.log("Inside initialize");
+    client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
+    console.log("before connecting to", process.env.DATABASE_URL);
+    await client.connect();
+    console.log("after connecting!");
+    try {
+        const res = await client.query('SELECT table_schema,table_name FROM information_schema.tables;');
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+    } catch (err) {
+        throw err;
+    }
     console.log("Connected to database pool correctly");
 }
 // the connection pool should start before the web server
@@ -11,39 +30,7 @@ module.exports.initialize = initialize
 
 
 async function close() {
-    await oracledb.getPool().close();
+    await client.end();
 }
 
 module.exports.close = close;
-
-
-function simpleExecute(statement, binds=[], opts={}) {
-    return new Promise(async (resolve, reject) => {
-        let conn;
-
-        opts.outFormat = oracledb.dbObjectAsPojo;
-        opts.autoCommit = true;
-
-        try {
-            conn = await oracledb.getConnection();
-            const result = await conn.execute(statement, binds, opts);
-
-            resolve(result);
-        } catch (err) {
-            reject(err);
-
-        } finally {
-            // Always executes
-            if (conn) {
-                // close the connection
-                try {
-                    await conn.close();
-                } catch (err) {
-                    console.log('Error on simpleExecute', err);
-                }
-            }
-        }
-    })
-}
-
-module.exports.simpleExecute = simpleExecute;
