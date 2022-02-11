@@ -1,36 +1,47 @@
 require('dotenv').config();
 const { Client } = require('pg');
+const { Sequelize } = require('sequelize');
 
-let client;
-
+let conn;
 
 async function initialize() {
-    console.log("Inside initialize");
-    client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false
-        }
-    });
-    console.log("before connecting to", process.env.DATABASE_URL);
-    await client.connect();
-    console.log("after connecting!");
+    console.log("Init sequelize connection");
+    conn = new Sequelize(process.env.DATABASE_URL, {native: true}) // try without ssl setup
     try {
-        const res = await client.query('SELECT table_schema,table_name FROM information_schema.tables;');
-        for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-        }
-    } catch (err) {
-        throw err;
+        await conn.authenticate();
+        console.log('db.js: Connection has been established successfully.');
+      } catch (error) {
+        console.error('db.js: Unable to connect to the database:', error);
     }
-    console.log("Connected to database pool correctly");
 }
-// the connection pool should start before the web server
+
+// async function initialize_() {
+//     console.log("Inside initialize");
+//     conn = new Client({
+//         connectionString: process.env.DATABASE_URL,
+//         ssl: {
+//             rejectUnauthorized: false
+//         }
+//     });
+//     console.log("before connecting to", process.env.DATABASE_URL);
+//     await conn.connect();
+//     console.log("after connecting!");
+//     try {
+//         const res = await conn.query('SELECT table_schema,table_name FROM information_schema.tables;');
+//         for (let row of res.rows) {
+//             console.log(JSON.stringify(row));
+//         }
+//     } catch (err) {
+//         throw err;
+//     }
+//     console.log("Connected to database pool correctly");
+// }
+
 module.exports.initialize = initialize
 
 
 async function close() {
-    await client.end();
+    await conn.close();  // client.end()
 }
 
 module.exports.close = close;
