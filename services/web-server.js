@@ -3,22 +3,27 @@ const cors = require('cors');
 const webServerConfig = require('../config/web-server');
 const morgan = require('morgan');
 
+const profilesRouter = require('../routes/profiles');
+
 let httpServer;
+
+const CORS_OPTIONS = {
+    //origin: ['https://viuteca.vercel.app', 'http://localhost:3000']
+}
 
 function initialize() {
     return new Promise((resolve, reject) => {
-
         const server = express();
         server.use(express.json());
+        server.use(express.urlencoded({ extended: true }));
         server.use(morgan('combined'));
-        // app.use(
-        //     cors({
-        //         origin: ['https://viuteca.vercel.app', 'http://localhost:3000'],
-        //         exposedHeaders: 'auth-token',
-        //         credentials: true
-        //     })
-        // )
+        server.use(cors(CORS_OPTIONS));
         
+        // Routers
+        server.use('/profiles', profilesRouter);
+
+
+
         server.get('/', async (req, res) => {
             // const result = await database.simpleExecute('select user from users');
             // const user = result.rows[0].USER;

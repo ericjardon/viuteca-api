@@ -1,12 +1,8 @@
 require('dotenv').config();
 const webServer = require('./services/web-server');
 const database = require('./services/db');
-const dbConfig = require('./config/db');
 const firebase = require('./services/firebase-admin');
-const defaultThreadPoolSize = 4;
 
-// Increase thread pool by poolMax so we can allocate our db pool
-process.env.UV_THREADPOOL_SIZE = dbConfig.vtPool.poolMax + defaultThreadPoolSize;
 
 async function startServer() {
     console.log('Starting server:');
@@ -19,25 +15,25 @@ async function startServer() {
     }
 
     try {
-        console.log('Initializing web server module...');
-        await webServer.initialize();
-    } catch (e) {
-        console.error(e);
-
-        process.exit(1);
-    }
-
-    try {
         console.log('Initializing database module...');
-        await database.initialize();
+        await database.authenticate();
+        console.log('Database connection established succesfully.');
     } catch (err) {
         console.error(err);
         // Cannot start our app without db access
         process.exit(1);
     }
-}
-startServer();
 
+    try {
+        console.log('Initializing web server module...');
+        await webServer.initialize();
+    } catch (e) {
+        console.error(e);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 async function shutdown(e) {
     let err = e;

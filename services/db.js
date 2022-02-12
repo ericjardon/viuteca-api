@@ -1,19 +1,17 @@
 require('dotenv').config();
-const { Client } = require('pg');
 const { Sequelize } = require('sequelize');
 
-let conn;
+const conn = new Sequelize(process.env.DATABASE_URL, {native: true}) // try without ssl setup
 
-async function initialize() {
-    console.log("Init sequelize connection");
-    conn = new Sequelize(process.env.DATABASE_URL, {native: true}) // try without ssl setup
-    try {
-        await conn.authenticate();
-        console.log('db.js: Connection has been established successfully.');
-      } catch (error) {
-        console.error('db.js: Unable to connect to the database:', error);
-    }
-}
+// async function initialize() {
+//     console.log("Init sequelize connection");
+//     try {
+//         await conn.authenticate();
+//         console.log('db.js: Connection has been established successfully.');
+//       } catch (error) {
+//         console.error('db.js: Unable to connect to the database:', error);
+//     }
+// }
 
 // async function initialize_() {
 //     console.log("Inside initialize");
@@ -37,11 +35,11 @@ async function initialize() {
 //     console.log("Connected to database pool correctly");
 // }
 
-module.exports.initialize = initialize
+// module.exports.initialize = initialize
 
 
-async function close() {
-    await conn.close();  // client.end()
-}
+// async function close() {
+//     await conn.close();  // client.end()
+// }
 
-module.exports.close = close;
+module.exports = conn;
