@@ -12,8 +12,8 @@ router.get('/', controller.getProfiles);
 router.get('/:id', controller.getProfileById);
 router.post('/', controller.createProfile);
 router.put('/:id', controller.updateProfile);
-router.get('/tags*', controller.getProfilesWithTags); // tags in JSON array
 
+// router.get('/tags*', controller.getProfilesWithTags); // tags in JSON array
 //router.delete('/:id', controller.deleteProfile);
 
 module.exports = router;

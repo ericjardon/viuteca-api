@@ -23,7 +23,7 @@ const Tag = db.define('tags', {
         //           'title'
         //         ]
         //       }
-        // ]
+        // ] // try without index first
     });
 
 Tag.belongsTo(Profile, {foreignKey: 'profile_id', targetKey: 'id'});

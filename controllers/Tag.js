@@ -1,3 +1,4 @@
+const Profile = require('../models/Profile');
 const Tag = require('../models/Tag');
 const sequelize = require('../services/db');
 
@@ -37,7 +38,7 @@ exports.getTags = async function (req, res) {
 }
 
  
-// Create a new profile
+// Create a new tag
 exports.createTag = async function (req, res) {
     console.log('create tag:', req.body);
     try {
@@ -50,7 +51,7 @@ exports.createTag = async function (req, res) {
 }
  
 
-// Delete profile by id
+// Delete tag
 exports.deleteTag = async function (req, res) {
     const {profile_id, title} = req.params;
 
@@ -63,7 +64,27 @@ exports.deleteTag = async function (req, res) {
         });
         res.send("Tag Deleted");
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(`Error deleting tag: "${title}"`)
+    }
+}
+
+
+exports.getProfilesWithTag = async function (req, res) {
+    const {title} = req.params;
+    try {
+        const results = await Tag.findAll({
+            where: {
+                title: title,
+            },
+            include: [{
+                model: Profile,
+                required: true,  // inner join less costly than outer
+            }],
+        })
+        res.send(results || 'Sorry, no results at all');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(`Error fetching profiles with tag: "${title}"`);
     }
 }
