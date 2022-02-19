@@ -11,8 +11,6 @@ const controller = require('../controllers/Tag');
 router.get('/', controller.getTags);
 router.get('/:profile_id', controller.getProfileTags);
 router.post('/', controller.createTag);
-router.put('/:id', controller.updateTag);
-
-//router.delete('/:id', controller.deleteTag);
+router.delete('/:profile_id/:title', controller.deleteTag);
 
 module.exports = router;

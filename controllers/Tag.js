@@ -1,6 +1,7 @@
 const Tag = require('../models/Tag');
 const sequelize = require('../services/db');
 
+
 exports.getProfileTags = async function (req, res) {
     const {profile_id} = req.params;
     try {
@@ -41,9 +42,7 @@ exports.createTag = async function (req, res) {
     console.log('create tag:', req.body);
     try {
         await Tag.create(req.body);  // profile_id, title in lowercase
-        res.send({
-            "message": "Tag Created"
-        });
+        res.send("Tag Created");
     } catch (err) {
         console.log(err);
         res.status(500).send('Error creating tag. Try again later.')

@@ -4,6 +4,7 @@ const webServerConfig = require('../config/web-server');
 const morgan = require('morgan');
 
 const profilesRouter = require('../routes/profiles');
+const tagsRouter = require('../routes/tags');
 
 let httpServer;
 
@@ -21,7 +22,7 @@ function initialize() {
         
         // Routers
         server.use('/profiles', profilesRouter);
-
+        server.use('/tags', tagsRouter);
 
 
         server.get('/', async (req, res) => {

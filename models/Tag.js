@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const db = require('../services/db');
+const Profile = require('./Profile');
 
 const Tag = db.define('tags', {
     profile_id: {
@@ -10,12 +11,21 @@ const Tag = db.define('tags', {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
     }},
     {
         freezeTableName: true,
-        timestamps: false
+        timestamps: false,
+        underscored: true,
+        // indexes: [
+        //     {
+        //         using: 'BTREE',
+        //         fields: [
+        //           'title'
+        //         ]
+        //       }
+        // ]
     });
 
+Tag.belongsTo(Profile, {foreignKey: 'profile_id', targetKey: 'id'});
 
 module.exports = Tag;

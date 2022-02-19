@@ -19,6 +19,9 @@ async function startServer() {
         console.log('Initializing database module...');
         await database.authenticate();
         console.log('Database connection established succesfully.');
+
+        // await database.sync({ force: true });
+        // console.log("All models were synchronized successfully.");
     } catch (err) {
         // Cannot start our app without db access
         console.error(err);
