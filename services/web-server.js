@@ -35,7 +35,7 @@ function initialize() {
                 reject(err);
                 return;
             }
-            console.log("Viuteca Server up and running in " + webServerConfig.port)
+            console.log("Viuteca API up and running in " + webServerConfig.port)
             resolve();
         });
     })

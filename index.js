@@ -10,6 +10,7 @@ async function startServer() {
         console.log('Initializing Firebase Admin SDK...');
         firebase.initialize(); 
     } catch (err) {
+        // Cannot start our app without firebase auth access
         console.error(err);
         process.exit(1);
     }
@@ -19,8 +20,8 @@ async function startServer() {
         await database.authenticate();
         console.log('Database connection established succesfully.');
     } catch (err) {
-        console.error(err);
         // Cannot start our app without db access
+        console.error(err);
         process.exit(1);
     }
 
