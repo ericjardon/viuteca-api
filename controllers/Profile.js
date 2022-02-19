@@ -76,46 +76,18 @@ exports.deleteProfile = async function (req, res) {
 }
 
 
-// maybe start with just a single-tag version
+// Note for array query params
 
-exports.getProfilesWithTags = async function (req, res) {
-// SELECT Item.*
-//   FROM Item
-//   JOIN Tag ON Item.ItemID = Tag.ItemID
-//  WHERE Tag.Title = :title
-    const {tag} = req.query; // should be an array
-    console.log('tag', tag);
-    try {
-        const profiles = await Profile.findAll({
-            include: [{
-                model: Tag,
-                where: {
-                    title: {
-                        [Op.in]: tag
-                    }
-                },
-                required,
-            }] 
-        });
-        res.send(profiles);
-        // If not works, try inverse: Tag holds the 'belongsTo' relation so fetch tags joined to profiles where tags=title
-    } catch (err) {
-        console.error(err);
-        res.send(`Error fetching profiles for tag ${title}`);
-    }
-}  // result was: SELECT "id", "email", "name", "description", "fb", "ig" FROM "profiles" AS "profiles" WHERE "profiles"."id" = 'tags';
-
-// const app = require('express')();
-
+// Router
 // app.get('*', (req, res) => {
 //   req.query; // { color: ['black', 'yellow'] }
 //   res.json(req.query);
 // });
 
-// const server = await app.listen(3000);
-// // Demo of making a request to the server
+// Client side
 // const axios = require('axios');
 // const querystring = '?color=black&color=yellow';
 // const res = await axios.get('http://localhost:3000/' + querystring);
 
+// Server side
 // res.data; // { color: ['black', 'yellow'] }
