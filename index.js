@@ -19,9 +19,7 @@ async function startServer() {
         console.log('Initializing database module...');
         await database.authenticate();
         console.log('Database connection established succesfully.');
-
-        // await database.sync({ force: true });
-        // console.log("All models were synchronized successfully.");
+        // await database.sync({ force: true });  synchronizing may remove our composite foreign key in tags table
     } catch (err) {
         // Cannot start our app without db access
         console.error(err);
@@ -56,7 +54,6 @@ async function shutdown(e) {
     // Database should close after the web server but before process exits.
     try {
         console.log('Closing database connection');
-
         await database.close();
     } catch (err) {
         console.log('Error while closing database connection', e);

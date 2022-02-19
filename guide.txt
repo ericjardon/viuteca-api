@@ -38,15 +38,11 @@ A single call to execute means a simple, unitary transaction like
 individual CRUD operations.
 
 
-These three are boilerplate code, and so can be abstracted into a function.
-
 Buildpacks for oracle instanc client in node:
-- https://github.com/puporod/heroku-buildpack-nodejs-oracledb OUTDATED
-- https://github.com/gmrempe/heroku-buildpack-nodejs-oracledb
+- https://github.com/puporod/heroku-buildpack-nodejs-oracledb 
 
 
 
 Modules to consider:
 - Winston: debugging, tracing
 - Morgan: http logging (STDOUT by default, you might want to output to an HTTP access log file)
-- Sworm: a ligthweight write-only ORM for many SQL databases; made for Node
