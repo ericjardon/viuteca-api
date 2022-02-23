@@ -1,7 +1,7 @@
 const {Op} = require('sequelize');
 const Profile = require('../models/Profile');
 const Tag = require('../models/Tag');
-
+const {getProfileAndTags} = require('./Tag');
  
 exports.getProfiles = async function (req, res) {
     try {
@@ -17,11 +17,27 @@ exports.getProfileById = async function (req, res) {
     const {id} = req.params;
     try {
         const profile = await Profile.findAll({
+            raw: true,  // only returns data values
             where: {
                 id: id
             }
         });
-        res.send(profile[0]);
+
+        // FIXME: optimize to a single sequelize query. (possible remodeling needed);
+        const tags = await Tag.findAll({
+            attributes: ['title'],
+            raw: true,
+            where: {
+                profile_id: id,
+            }
+        });
+
+        let profile_and_tags = profile[0];
+        if (tags) {
+            profile_and_tags.tags = tags.map(t => t.title);
+        }
+        
+        res.send(profile_and_tags);
     } catch (err) {
         console.log(err);
         res.status(500).send(`Error fetching profile ${id}`);
@@ -76,18 +92,4 @@ exports.deleteProfile = async function (req, res) {
 }
 
 
-// Note for array query params
-
-// Router
-// app.get('*', (req, res) => {
-//   req.query; // { color: ['black', 'yellow'] }
-//   res.json(req.query);
-// });
-
-// Client side
-// const axios = require('axios');
-// const querystring = '?color=black&color=yellow';
-// const res = await axios.get('http://localhost:3000/' + querystring);
-
-// Server side
-// res.data; // { color: ['black', 'yellow'] }
+exports.getProfileAndTags = getProfileAndTags;

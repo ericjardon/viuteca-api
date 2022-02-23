@@ -9,6 +9,7 @@ const controller = require('../controllers/Profile');
 
 
 router.get('/', controller.getProfiles);
+router.get('/:profile_id/with-tags', controller.getProfileAndTags); 
 router.get('/:id', controller.getProfileById);
 router.post('/', controller.createProfile);
 router.put('/:id', controller.updateProfile);

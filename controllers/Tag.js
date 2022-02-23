@@ -88,3 +88,34 @@ exports.getProfilesWithTag = async function (req, res) {
         res.status(500).send(`Error fetching profiles with tag: "${title}"`);
     }
 }
+
+
+// used by Profiles router
+exports.getProfileAndTags = async function (req, res) {
+    // Useful when we know a profile HAS tags.
+    console.log('Get profile and tags!');
+    const {profile_id} = req.params;
+    try {
+        const results = await Tag.findAll({
+            where: {
+                profile_id: profile_id,
+            },
+            include: [{
+                model: Profile,
+                required: true,  // inner join less costly than outer
+            }],
+        })
+
+        let profile;
+        if (results) {
+            profile = results[0].profile;
+            profile.tags = results.map(obj => obj.title);
+        }
+        
+        console.log("results", results);
+        res.send(results || 'Sorry, no results at all');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(`Error fetching profile and tags: "${profile_id}"`);
+    }
+}
