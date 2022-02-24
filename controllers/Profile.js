@@ -58,20 +58,22 @@ exports.createProfile = async function (req, res) {
  
 // Update profile by id
 exports.updateProfile = async function (req, res) {
-    const {id} = req.params.id;
+    const {id} = req.params;
+    console.log("to update", id);
+
     try {
         await Profile.update(req.body, {
             where: {
                 id: id
             }
         });
-        res.send("Profile Updated");
+        res.status(200).send("Profile Updated");
 
     } catch (err) {
         console.log(err);
         res.status(500).send(
             'Error updating profile: ' + JSON.stringify(req.body)
-        )
+        );
     }
 }
  
@@ -87,7 +89,7 @@ exports.deleteProfile = async function (req, res) {
         res.send("Profile Deleted");
     } catch (err) {
         console.log(err);
-        res.status(500).send(`Error deleting profile`);
+        res.status(500).status(500).send(`Error deleting profile`);
     }
 }
 
