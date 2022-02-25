@@ -22,15 +22,12 @@ const Video = db.define('videos', {
   },
   duration_hrs: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   duration_mins: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   duration_secs: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   likes: {
     type: DataTypes.INTEGER,

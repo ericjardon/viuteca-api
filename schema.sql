@@ -14,9 +14,9 @@ CREATE TABLE video (
 	title varchar(100) NOT NULL,
 	dt timestamp without time zone NOT NULL,
 	description varchar(500),
-	duration_hrs integer NOT NULL,
-	duration_mins integer CHECK(duration_mins BETWEEN 0 and 59) NOT NULL,
-	duration_secs integer CHECK(duration_secs BETWEEN 0 and 59) NOT NULL,
+	duration_hrs integer,
+	duration_mins integer CHECK(duration_mins BETWEEN 0 and 59),
+	duration_secs integer CHECK(duration_secs BETWEEN 0 and 59),
 	likes integer DEFAULT 0,
 	img_url text,
 	video_url text NOT NULL
