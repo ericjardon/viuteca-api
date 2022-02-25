@@ -23,10 +23,9 @@ VALUES
 
 INSERT INTO
     video (
-        id,
         profile_id,
         title,
-        dr,
+        dt,
         description,
         duration_hrs,
         duration_mins,
