@@ -51,6 +51,6 @@ const Video = db.define('videos', {
   timestamps: false
 });
 
-Video.hasOne(Profile, {foreignKey: 'profile_id', targetKey: 'id'});
+Video.belongsTo(Profile, {foreignKey: 'profile_id', targetKey: 'id'}); // hasOne would put column on profiles model
 
 module.exports = Video;

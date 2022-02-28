@@ -15,6 +15,7 @@ exports.getProfiles = async function (req, res) {
 
 exports.getProfileById = async function (req, res) {
     const {id} = req.params;
+
     try {
         const profile = await Profile.findAll({
             raw: true,  // only returns data values

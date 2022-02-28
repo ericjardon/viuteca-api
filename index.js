@@ -3,7 +3,6 @@ const webServer = require('./services/web-server');
 const database = require('./services/db');
 const firebase = require('./services/firebase-admin');
 
-
 async function startServer() {
     console.log('Starting server:');
     try {
