@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devserver": "nodemon ./index.js",
+    "devstart": "nodemon ./index.js",
     "debugstart": "SET DEBUG=local-library:* & npm run start"
   },
   "repository": {
