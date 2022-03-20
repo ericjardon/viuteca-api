@@ -94,7 +94,7 @@ exports.updateVideo = async function (req, res) {
  
 // Delete video by id
 exports.deleteVideo = async function (req, res) {
-    const {id} = req.params.id;
+    const {id} = req.params;
     try {
         await Video.destroy({
             where: {
@@ -102,6 +102,23 @@ exports.deleteVideo = async function (req, res) {
             }
         });
         res.send("Video Deleted");
+    } catch (err) {
+        console.log(err);
+        res.status(500).status(500).send(`Error deleting video`);
+    }
+}
+
+exports.deleteVideoByProfileName = async function(req,res) {
+    const {profile_id, title} = req.params;
+
+    try {
+        await Video.destroy({
+            where: {
+                profile_id: profile_id,
+                title: title,
+            }
+        });
+        res.send(`Video ${title} Deleted`);
     } catch (err) {
         console.log(err);
         res.status(500).status(500).send(`Error deleting video`);

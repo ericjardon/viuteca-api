@@ -14,6 +14,8 @@ router.get('/:id', controller.getVideoById);
 router.post('/', controller.createVideo);
 router.put('/:id', controller.updateVideo);
 router.delete('/:id', controller.deleteVideo);
+router.delete('/by-name/:profile_id/:title', controller.deleteVideoByProfileName);
+
 
 // router.get('/tags*', controller.getProfilesWithTags); // tags in JSON array
 
