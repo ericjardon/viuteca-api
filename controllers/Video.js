@@ -114,7 +114,7 @@ exports.getUserVideosAPI = async function (req, res) {
     const {profile_id} = req.params;
     console.log("fetching videos from user", profile_id);
 
-    let queryString = `SELECT * FROM videos WHERE profile_id='${profile_id}'`
+    let queryString = `SELECT * FROM videos WHERE profile_id='${profile_id}' ORDER BY dt DESC`
     const videos = await sequelize.query(queryString, {
         model: Video,
         mapToModel: true
