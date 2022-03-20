@@ -1,6 +1,7 @@
 const Video = require('../models/Video');
 const Profile = require('../models/Profile');
- 
+const sequelize = require('../services/db');
+
 exports.getVideos = async function (req, res) {
     try {
         const videos = await Video.findAll();
@@ -107,3 +108,19 @@ exports.deleteVideo = async function (req, res) {
     }
 }
 
+// route /api/videos/from/:profile_id
+exports.getUserVideosAPI = async function (req, res) {
+    // Raw Query
+    const {profile_id} = req.params;
+    console.log("fetching videos from user", profile_id);
+
+    let queryString = `SELECT * FROM videos WHERE profile_id='${profile_id}'`
+    const videos = await sequelize.query(queryString, {
+        model: Video,
+        mapToModel: true
+    });
+
+    console.log('Api fetched videos');
+    console.log(videos);
+    res.send(videos);
+}
