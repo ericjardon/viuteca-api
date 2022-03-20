@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const profilesRouter = require('../routes/profiles');
 const tagsRouter = require('../routes/tags');
 const videosRouter = require('../routes/videos');
+const publicAPIRouter = require('../routes/api/public');
 
 let httpServer;
 
@@ -25,6 +26,8 @@ function initialize() {
         server.use('/profiles', profilesRouter);
         server.use('/tags', tagsRouter);
         server.use('/videos', videosRouter);
+        // Public API
+        server.use('/api', publicAPIRouter);
 
 
         server.get('/', async (req, res) => {
